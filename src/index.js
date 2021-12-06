@@ -1,22 +1,14 @@
-function getComponent() {
-    async function getComponent() {
-        const element = document.createElement('div');
-        const {default: _} = await import('lodash');
+import _ from 'lodash';
+import Print from './print';
 
-        return import('lodash')
-            .then(({default: _}) => {
-                const element = document.createElement('div');
-                element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+function component() {
+    const element = document.createElement('div');
 
-                element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-                return element;
-            })
-            .catch((error) => 'An error occurred while loading the component');
-        return element;
-    }
+    // lodash 是由当前 script 脚本 import 进来的
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+    element.onclick = Print.bind(null, 'Hello webpack!');
+    console.log(111);
+    return element;
 }
 
-getComponent().then((component) => {
-    document.body.appendChild(component);
-});
+document.body.appendChild(component());
